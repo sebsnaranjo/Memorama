@@ -78,8 +78,11 @@ class Memorama {
         e.target.childNodes[1].style.display = 'block';
     }
     
-    fijarParAcertado() {
-
+    fijarParAcertado(arregloTarjetasAcertadas) {
+        arregloTarjetasAcertadas.forEach(tarjeta => {
+            tarjeta.classList.add('acertada');
+            this.imagenesCorrecatas.push(tarjeta);
+        })
     }
 
     reversoTarjetas() {
