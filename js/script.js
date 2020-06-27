@@ -45,11 +45,40 @@ class Memorama {
         let html = '';
         this.totalTarjetas.forEach(card => {
             html += `<div class="tarjeta">
-                        <img class="tajeta-img" src=${card.src} alt="imagen memorama">
+                        <img class="tarjeta-img" src=${card.src} alt="imagen memorama">
                     </div>`
         })
 
         this.$contenedorTarjetas.innerHTML = html;
+        this.comienzaJuego();
+
+    }
+
+    comienzaJuego() {
+        const tarjetas = document.querySelectorAll('.tarjeta');
+        tarjetas.forEach(tarjeta => {
+            tarjeta.addEventListener('click', e => {
+                this.clickTarjeta(e)
+            })
+        })
+    }
+
+    clickTarjeta(e) {
+        this.efectoVoltearTarjeta(e);
+        let sourceImage = e.target.childNodes[1].attributes[1].value; //Permite saber el src 
+        this.verificadorTarjetas.push(sourceImage);
+        let tarjeta = e.target;
+        this.agregadorTarjetas.unshift(tarjeta);
+        this.comparadorTarjetas();
+    }
+
+    efectoVoltearTarjeta(e) {
+        e.target.style.backgroundImage = 'none';
+        e.target.style.backgroundColor =  'white';
+        e.target.childNodes[1].style.display = 'block';
+    }
+
+    comparadorTarjetas() {
 
     }
 }
