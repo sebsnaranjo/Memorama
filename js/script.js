@@ -77,9 +77,24 @@ class Memorama {
         e.target.style.backgroundColor =  'white';
         e.target.childNodes[1].style.display = 'block';
     }
+    
+    fijarParAcertado() {
+
+    }
+
+    reversoTarjetas() {
+        
+    }
 
     comparadorTarjetas() {
-
+        if (this.verificadorTarjetas.length == 2) {
+            if(this.verificadorTarjetas[0] == this.verificadorTarjetas[1]){
+                this.fijarParAcertado(this.agregadorTarjetas);
+            } else {
+                this.reversoTarjetas(this.agregadorTarjetas);
+                this.errores++;
+            }
+        }
     }
 }
 
