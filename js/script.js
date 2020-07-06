@@ -51,7 +51,7 @@ class Memorama {
 
         this.$contenedorTarjetas.innerHTML = html;
         this.comienzaJuego();
-
+        this.contenedorError();
     }
 
     comienzaJuego() {
@@ -102,6 +102,8 @@ class Memorama {
             } else {
                 this.reversoTarjetas(this.agregadorTarjetas);
                 this.errores++;
+                this.incrementadorError();
+                this.derrotaJuego();
             }
             this.verificadorTarjetas.splice(0);
             this.agregadorTarjetas.splice(0);
@@ -118,6 +120,27 @@ class Memorama {
                 location.reload()
             }, 4000);
         }
+    }
+
+    derrotaJuego() {
+        if (this.errores === 5) {
+            setTimeout(() => {
+                this.$pantallaBloqueada.style.display = 'block';
+            }, 1000);
+            setTimeout(() => {
+                location.reload();
+            }, 4000);
+        }
+    }
+
+    incrementadorError() {
+        this.$errorContenedor.innerText = `Errores: ${this.errores}`;
+    }
+
+    contenedorError() {
+        this.$errorContenedor.classList.add('error');
+        this.incrementadorError();
+        this.$contenedorGeneral.appendChild(this.$errorContenedor);
     }
 }
 
