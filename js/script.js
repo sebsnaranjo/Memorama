@@ -102,6 +102,8 @@ class Memorama {
                 this.reversoTarjetas(this.agregadorTarjetas);
                 this.errores++;
             }
+            this.verificadorTarjetas.splice(0);
+            this.agregadorTarjetas.splice(0);
         }
     }
 }
