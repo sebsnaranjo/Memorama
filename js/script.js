@@ -14,7 +14,7 @@ class Memorama {
         this.$contenedorGeneral = document.querySelector('.contenedor-general');
         this.$pantallaBloqueada = document.querySelector('.pantalla-bloqueada');
         this.$mensaje = document.querySelector('h2.mensaje');
-        
+        this.$errorContenedor = document.createElement('div')
         //Llamado a los eventos
 
         this.eventos()
@@ -82,6 +82,7 @@ class Memorama {
         arregloTarjetasAcertadas.forEach(tarjeta => {
             tarjeta.classList.add('acertada');
             this.imagenesCorrecatas.push(tarjeta);
+            this.victoriaJuego();
         })
     }
 
@@ -104,6 +105,18 @@ class Memorama {
             }
             this.verificadorTarjetas.splice(0);
             this.agregadorTarjetas.splice(0);
+        }
+    }
+
+    victoriaJuego() {
+        if(this.imagenesCorrecatas.length == this.numeroTarjetas){
+            setTimeout(() => {
+                this.$pantallaBloqueada.style.display = 'block';
+                this.$mensaje.innerText = '¡Felicidades haz ganado el juegos!';
+            }, 1000);
+            setTimeout(() => {
+                location.reload()
+            }, 4000);
         }
     }
 }
