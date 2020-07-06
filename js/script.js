@@ -85,8 +85,13 @@ class Memorama {
         })
     }
 
-    reversoTarjetas() {
-        
+    reversoTarjetas(arregloTarjetas) {
+        arregloTarjetas.forEach(tarjeta => {
+            setTimeout(() => {
+                tarjeta.style.backgroundImage = 'url(../img/cover.jpg)';
+                tarjeta.childNodes[1].style.display = 'none';
+            }, 1000);
+        })
     }
 
     comparadorTarjetas() {
