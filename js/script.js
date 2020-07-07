@@ -9,12 +9,14 @@ class Memorama {
         this.nivelDificultad = '';
         this.imagenesCorrecatas = [];
         this.agregadorTarjetas = [];
+        this.numeroIntentos = 0;
 
         this.$contenedorTarjetas = document.querySelector('.contenedor-tarjetas');
         this.$contenedorGeneral = document.querySelector('.contenedor-general');
         this.$pantallaBloqueada = document.querySelector('.pantalla-bloqueada');
         this.$mensaje = document.querySelector('h2.mensaje');
-        this.$errorContenedor = document.createElement('div')
+        this.$errorContenedor = document.createElement('div');
+        this.$nivelDificultad = document.createElement('div');
         //Llamado a los eventos
 
         this.eventos()
@@ -22,8 +24,36 @@ class Memorama {
 
     eventos() {
         window.addEventListener('DOMContentLoaded', () => {
+            this.seleccionDificultad();
             this.cargaPantalla();
         })
+    }
+
+    seleccionDificultad() {
+        const mensaje = prompt('Selecciona el nivel de dificultad: fácil, intermedio o dificil. Si no seleccionas ningún nivel por defecto el nivel será intermedio');
+
+        if(!mensaje) {
+            this.numeroIntentos = 5;
+            this.nivelDificultad = 'Intermedio';
+        } else {
+            if(mensaje.toLowerCase() === 'facil' || mensaje.toLowerCase() === 'fácil') {
+                this.numeroIntentos = 7;
+                this.nivelDificultad = 'Fácil';
+            } else if (mensaje.toLowerCase() === 'intermedio'){
+                this.numeroIntentos = 5;
+                this.nivelDificultad = 'Intermedio';
+            } else if (mensaje.toLowerCase() === 'dificil' || mensaje.toLowerCase() === 'difícil') {
+                this.numeroIntentos = 3;
+                this.nivelDificultad = 'Difícil';
+            } else {
+                this.numeroIntentos = 5;
+                this.nivelDificultad = 'Intermedio';
+            }
+        }
+        
+        this.contenedorError();
+        this.mensajeIntentos();
+
     }
 
 
@@ -51,7 +81,6 @@ class Memorama {
 
         this.$contenedorTarjetas.innerHTML = html;
         this.comienzaJuego();
-        this.contenedorError();
     }
 
     comienzaJuego() {
@@ -123,7 +152,7 @@ class Memorama {
     }
 
     derrotaJuego() {
-        if (this.errores === 5) {
+        if (this.errores === this.numeroIntentos) {
             setTimeout(() => {
                 this.$pantallaBloqueada.style.display = 'block';
             }, 1000);
@@ -141,6 +170,12 @@ class Memorama {
         this.$errorContenedor.classList.add('error');
         this.incrementadorError();
         this.$contenedorGeneral.appendChild(this.$errorContenedor);
+    }
+
+    mensajeIntentos() {
+        this.$nivelDificultad.classList.add('nivel-dificultad');
+        this.$nivelDificultad.innerHTML = `Nivel de dificultad: ${this.nivelDificultad}`
+        this.$contenedorGeneral.appendChild(this.$nivelDificultad);
     }
 }
 
